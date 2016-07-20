@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from socialoauth.sites.base import OAuth2
 
 
@@ -7,6 +6,15 @@ class Weibo(OAuth2):
     AUTHORIZE_URL = 'https://api.weibo.com/oauth2/authorize'
     ACCESS_TOKEN_URL = 'https://api.weibo.com/oauth2/access_token'
 
+    def __init__(self):
+        super(Weibo, self).__init__()
+        self.uid = None
+        self.access_token = None
+        self.expires_in = None
+        self.refresh_token = None
+        # self.name = None
+        # self.avatar = None
+        # self.avatar_large = None
 
     def build_api_url(self, url):
         return url
@@ -24,21 +32,18 @@ class Weibo(OAuth2):
         self.expires_in = res['expires_in']
         self.refresh_token = None
 
-        res = self.api_call_get(
-            'https://api.weibo.com/2/users/show.json',
-            uid=self.uid
-        )
+        # res = self.api_call_get(
+        #     'https://api.weibo.com/2/users/show.json',
+        #     uid=self.uid
+        # )
+        #
+        # self.name = res['name']
+        # self.avatar = res['profile_image_url']
+        # self.avatar_large = res['avatar_large']
 
-        self.name = res['name']
-        self.avatar = res['profile_image_url']
-        self.avatar_large = res['avatar_large']
-
-
-
-    def post_status(self, text):
-        if isinstance(text, unicode):
-            text = text.encode('utf-8')
-
-        url = 'https://api.weibo.com/2/statuses/update.json'
-        res = self.api_call_post(url, status=text)
-
+    # def post_status(self, text):
+    #     if isinstance(text, unicode):
+    #         text = text.encode('utf-8')
+    #
+    #     url = 'https://api.weibo.com/2/statuses/update.json'
+    #     res = self.api_call_post(url, status=text)
